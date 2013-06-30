@@ -1,0 +1,43 @@
+//快速排序法
+#include<stdio.h>
+#include<stdlib.h>
+int Partition(int A[],int p,int r){
+     int i,x,temp,j;
+     i=p-1;    printf("此时的i为：%d\n",i);
+    x=A[r];   printf("r=%d:A[r]=%d\n",r,x);
+    
+     for(j=p;j<r;j++){
+          if(A[j] < A[r]){
+              i++;
+               printf("交换A[%d]与A[%d]的位置  %d-->%d\n",i,j,A[i],A[j]);
+               temp = A[j];
+               A[j]=A[i];
+               A[i] = temp;
+          }
+     }
+          temp=A[i+1];
+          A[i+1]=A[r];
+          A[r]=temp;
+    
+     return i+1;
+}
+int Sort(int A[],int p,int r){
+     int q;
+    if(p<r){
+         q=Partition(A,p,r);printf("%d的位置出来鸟%d\n",A[q],q);
+          Sort(A,p,q-1);
+          Sort(A,q+1,r);
+     }
+
+}
+
+int main(){
+    int n,i,A[20];
+     scanf("%d",&n);
+     for(i=0;i<n;i++)
+          scanf("%d",&A[i]);
+     Sort(A,0,n-1);
+     for(i=0;i<n;i++)
+          printf("%d---->",A[i]);
+    
+}
