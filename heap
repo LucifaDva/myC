@@ -1,0 +1,68 @@
+/*
+  大根堆
+*/
+#include<stdio.h>
+#include<stdlib.h>
+//维护大根堆单点基本性质
+void Max_heap(int A[],int i,int len){
+     int l,r,largest,temp;
+    l = 2*i;
+     r = 2*i+1;
+     if(2*i<=len && A[l]>A[i]){
+         largest = l;
+          printf("%d  左大于右   \n",l);
+     }else{
+         largest = i;
+     }
+
+     if((2*i+1)<=len && A[r]>A[largest]){
+         largest = r;
+          printf("%d  右大于左   \n",r);
+     }
+     if(i != largest){
+          printf("交换的值为%d--->%d ：位置为%d----->%d\n",A[i],A[largest],i,largest);
+         temp=A[i];
+          A[i]=A[largest];
+          A[largest]=temp;
+          //exchange(&A[i],&A[largest]);
+          Max_heap(A,largest,len);
+     }
+        //??????
+}
+void exchange(int *a,int *b){
+    int temp;
+     temp = *a;
+     *a = *b;
+     *b = temp;
+}
+//构造大根堆
+void Build_heap(int A[],int len){
+    int heap_len = len,i;
+     for(i=heap_len/2;i>0;i--){
+         Max_heap(A,i,heap_len);
+     }
+}
+
+
+int main(){
+int A[20],len,i,heapsize,temp;
+printf("请输入堆的长度：\n");
+scanf("%d",&len);
+for(i=1;i<len+1;i++)
+    scanf("%d",&A[i]);
+Build_heap(A,len);
+printf("*************************\n");
+//大根堆排序
+heapsize=len;
+for(i=len;i>1;i--){
+    temp = A[1];
+     A[1] = A[i];
+     A[i] = temp;
+     heapsize--;
+     Max_heap(A,1,heapsize);
+
+
+}
+for(i=1;i<len+1;i++)
+    printf("%d   ",A[i]);
+}
