@@ -1,0 +1,126 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+typedef struct node{
+    int data;
+     struct node *next;
+     struct node *pre;
+}LNode,*LinkList;
+
+//创建双向链表
+LinkList init(int len){
+     LinkList l,p,ele;
+     int i,a;
+    l = (LinkList)malloc(sizeof(LNode));
+     //if(!l) printf("分配头节点失败\n");
+     l->pre=NULL;l->next=NULL;
+     p=l;
+     for(i=0;i<len;i++){
+         printf("输入节点值：");
+          scanf("%d",&a);
+          ele = (LinkList)malloc(sizeof(LNode));
+          ele->data = a;
+          ele->next=NULL;
+         
+          ele->pre=p;
+          p->next=ele;
+          p=ele;
+     }
+     return l;
+}
+//按值查找节点位置
+int chaList(LinkList l,int e){
+    LinkList p;
+     int i;
+     p=l->next;
+     i=1;
+     while(p->next!=NULL && p->data!=e){
+         p = p->next;
+          i++;
+     }
+     if(p->next!=NULL){
+         printf("位置为:%d\n",i);
+     }
+     else{
+         printf("没有你要找那个\n");
+     }
+}
+
+//插入一个新节点
+void insertList(LinkList l,int n,int e){
+    LinkList p,q,ele;
+     int i=1;
+     p=q=l->next;
+     while(i!=n){
+         p=q;
+          q=q->next;
+          i++;
+     }
+     ele=(LinkList)malloc(sizeof(LNode));
+     ele->next=NULL;ele->pre=NULL;ele->data=e;
+    p->next = ele;
+     ele->next = q;
+     q->pre = ele;
+     ele->pre = p;
+
+}
+
+//删除一个节点【按值】
+void delList(LinkList l,int e){
+    LinkList p,q;
+     p=q=l->next;
+     while(q->data!=e && q->next!=NULL){
+         p=q;
+          q=q->next;
+     }
+    if(q->next == NULL){
+          if(q->data == e){
+                    q->pre = NULL;
+                    p->next = NULL;
+          }else{
+              printf("No thus Node\n");
+          }
+     }else{
+          q=q->next;
+         p->next = q;
+          q->pre=p;
+     }
+
+}
+
+//顺序打印链表各节点
+void printList(LinkList l,int len){
+     LinkList p;
+     int i=1;
+     p=l->next;
+    while(i!=len){
+         printf("%d---->",p->data);
+          i++;
+          p=p->next;
+     }
+     printf("%d\n",p->data);
+}
+
+int main(){
+    int len,e,index;
+     LinkList l;
+     printf("请输入双向链表长度：");
+     scanf("%d",&len);
+     l=init(len);
+     printList(l,len);
+
+    /*printf("输入您要查找的值：");
+     scanf("%d",&e);
+     chaList(l,e);
+
+     printf("输入您想插入的新值位置：");
+     scanf("%d",&index);
+     printf("新值大小：");
+     scanf("%d",&e);
+    insertList(l,index,e);
+*/
+     printf("请输入将要删除的节点值：");
+     scanf("%d",&e);
+     delList(l,e);
+    printList(l,len-1);
+}
