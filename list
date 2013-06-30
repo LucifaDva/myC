@@ -1,0 +1,154 @@
+//链表的各种操作实现(单向链表)
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct node{
+    int data;
+    struct node *next;
+}LNode,*LinkList;
+
+LinkList init(int len){
+    int i,a;
+    LinkList p,r,list;
+    list = (LinkList)malloc(sizeof(LNode));  //头节点
+    if(!list)  printf("初始化失败\n");
+    list->next = NULL;
+    for(i=0;i<len;i++){
+     printf("输入该节点要创建的元素\n");
+     p=(LinkList)malloc(sizeof(LNode));   //给新节点分配存储空间
+     scanf("%d",&a);
+        p->data = a;
+        p->next = NULL;
+     if(!list->next){
+         list->next = p;    //给第一个节点由头节点指向
+        }else{
+         r->next = p;
+     }
+     r=p;
+    }
+    return list;   //返回该链表的头节点
+}
+
+//插入元素
+void insertList(LinkList l,int n,int e){
+    LinkList p,q,ele;
+    int i=1;
+    ele = (LinkList)malloc(sizeof(LNode));
+    ele->data = e;
+    ele->next = NULL;
+    p = q = l->next;   //p,q指向第一个节点
+   
+    if(n==1){
+     l->next = ele;
+     ele->next =q;
+        return;
+    }
+    while(i!=n&&q->next!=NULL){
+     p=q;
+     q=p->next;
+     i++;
+    }
+    if(i==n){
+     p->next=ele;
+     ele->next=q;
+    }else if(i<n){
+     q->next=ele;
+    }
+}
+//删除节点
+//节点的删除
+void deleteList(LinkList l,int n){
+    LinkList p,q;
+    int i=1;
+    p=q=l->next;
+    if(n==1){
+         l->next=NULL;
+    }else{
+    while(i!=n&&q->next!=NULL){
+         p=q;
+         q=q->next;
+         i++;
+    }
+    if(i==n){
+         p->next=q->next;
+     //     free q;
+    }
+    else{
+        printf("您希望删除的节点不存在\n");
+    }
+   }
+}
+//修改节点
+void modifyLink(LinkList l,int n,int newdata){
+    LinkList q;
+     int i=1;
+     q=l->next;
+     if(n==1){
+         q->data = newdata;
+     }
+     while(i!=n&&q->next!=NULL){
+          q=q->next;
+          i++;
+     }
+     if(i==n){
+         q->data = newdata;
+     }
+     else if(i<n){
+         printf("您所输入的节点不存在！\n");
+     }
+}
+//查找值
+void  findLink(LinkList l,int e){
+    LinkList p=l->next;
+     int i=1;
+    while(p->data!=e){
+         p=p->next;
+          i++;
+     }
+     if(p->next!=NULL)
+          printf("位置:%d\n",i);
+     else{
+         printf("该节点不存在\n");
+     }
+}
+//排序
+
+//打印链表
+void printLink(LinkList l){
+    LinkList q;
+    q=l->next;
+    while(q->next!=NULL){
+     printf("%d--->",q->data);
+        q=q->next;
+    }
+    printf("%d\n",q->data);
+}
+
+int main(){
+LinkList l;
+while(1){
+int len,n,newdata,m,cha;
+printf("请输入你想初始化的链表的长度\n");
+scanf("%d",&len);
+l = init(len);
+printLink(l);
+
+printf("请输入您想要修改的链表节点的位置\n");
+scanf("%d",&n);
+printf("修改新值\n");
+scanf("%d",&newdata);
+modifyLink(l,n,newdata);
+printLink(l);
+
+printf("请输入您要删除节点的位置\n");
+scanf("%d",&m);
+deleteList(l,m);
+printLink(l);
+
+printf("请输入查找值\n");
+scanf("%d",&cha);
+findLink(l,cha);
+printLink(l);
+}
+return 0;
+}
