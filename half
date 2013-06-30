@@ -1,0 +1,54 @@
+//
+//  main.c
+//  myc
+//
+//  Created by SangBaisong on 13-6-30.
+//  Copyright (c) 2013年 SangBaisong. All rights reserved.
+//
+
+
+//找出频率超过一半的数
+/*int find(int a[],int len){
+    int candidta=0,count=0,i;
+    for(i=0;i<len;i++){
+        if(count=0){
+            candidta=a[i];
+            count++;
+            printf("i=%d处，candidate=%d,count=%d\n",i,candidta,count);
+        }else{
+            if(a[i]=candidta){
+                count++;
+            printf("i=%d处，candidate=%d,count=%d\n",i,candidta,count);}
+            else{
+                count--;
+            printf("i=%d处，candidate=%d,count=%d\n",i,candidta,count);}
+        }
+    }
+    return candidta;
+}*/
+int main(){
+    int i,n,a[100],f,candidta=0,count=0;
+    printf("请输入数个数：");
+        scanf("%d",&n);
+    for(i=0;i<n;i++){
+        scanf("%d",&a[i]);
+    }
+    for(i=0;i<n;i++){
+        printf("%d-->",a[i]);
+    }
+    for(i=0;i<n;i++){
+        if(count==0){
+            candidta=a[i];
+            count++;
+            printf("i=%d处，candidate=%d,count=%d\n",i,candidta,count);
+        }else{
+            if(a[i]==candidta){
+                count++;
+                printf("i=%d处，candidate=%d,count=%d\n",i,candidta,count);}
+            else{
+                count--;
+                printf("i=%d处，candidate=%d,count=%d\n",i,candidta,count);}
+        }
+    }
+    printf("%d---->",candidta);
+}
